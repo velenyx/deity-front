@@ -2,7 +2,20 @@ import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import webpack from 'webpack'
 import { BuildOptions } from './types/config'
 
-export function buildLoaders(optionsBuild: BuildOptions): webpack.RuleSetRule[] {
+export function buildLoaders(
+  optionsBuild: BuildOptions,
+): webpack.RuleSetRule[] {
+  const babelLoader = {
+    test: /\.(js|ts|jsx|tsx)$/,
+    exclude: /node_modules/,
+    use: {
+      loader: 'babel-loader',
+      options: {
+        presets: ['@babel/preset-env'],
+      },
+    },
+  }
+
   const svgLoader = {
     test: /\.svg$/,
     use: ['@svgr/webpack'],
@@ -26,13 +39,18 @@ export function buildLoaders(optionsBuild: BuildOptions): webpack.RuleSetRule[] 
   const cssLoaders = {
     test: /\.s[ac]ss$/i,
     use: [
-      optionsBuild.isDev ? 'style-loader' : MiniCssExtractPlugin.loader,
+      optionsBuild.isDev
+        ? 'style-loader'
+        : MiniCssExtractPlugin.loader,
       {
         loader: 'css-loader',
         options: {
           modules: {
-            auto: (resPath: string) => Boolean(resPath.includes('.module.')),
-            localIdentName: optionsBuild.isDev ? '[path][name]__[local]--[hash:base64:5]' : '[hash:base64:8]',
+            auto: (resPath: string) =>
+              Boolean(resPath.includes('.module.')),
+            localIdentName: optionsBuild.isDev
+              ? '[path][name]__[local]--[hash:base64:5]'
+              : '[hash:base64:8]',
           },
         },
       },
@@ -40,5 +58,11 @@ export function buildLoaders(optionsBuild: BuildOptions): webpack.RuleSetRule[] 
     ],
   }
 
-  return [fileLoader, svgLoader, typescriptLoader, cssLoaders]
+  return [
+    fileLoader,
+    svgLoader,
+    babelLoader,
+    typescriptLoader,
+    cssLoaders,
+  ]
 }
