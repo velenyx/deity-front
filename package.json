@@ -21,7 +21,9 @@
     "@types/react-dom": "^18.2.6",
     "@types/react-router-dom": "^5.3.3",
     "@types/webpack-dev-server": "^4.7.2",
+    "babel-plugin-i18next-extract": "^0.9.0",
     "css-loader": "^6.8.1",
+    "eslint-plugin-i18next": "^6.0.3",
     "file-loader": "^6.2.0",
     "html-webpack-plugin": "^5.5.3",
     "mini-css-extract-plugin": "^2.7.6",
@@ -37,8 +39,12 @@
     "webpack-dev-server": "^4.15.1"
   },
   "dependencies": {
+    "i18next": "^23.2.6",
+    "i18next-browser-languagedetector": "^7.1.0",
+    "i18next-http-backend": "^2.2.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-i18next": "^13.0.1",
     "react-router-dom": "^6.14.1"
   }
 }

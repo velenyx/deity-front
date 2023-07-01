@@ -1,16 +1,14 @@
-import { useState } from 'react'
+import { AppRouter } from 'app/provider/router'
+import { FC, Suspense } from 'react'
 
-export const App = () => {
-  const [count, setCounter] = useState<number>(0)
-
-  const increment = () => {
-    setCounter(count + 5)
-  }
-
+export const App: FC = () => {
   return (
-    <div>
-      {count}
-      <button onClick={increment}>Increment</button>
+    <div className="app">
+      <Suspense fallback="">
+        <div className="content-page">
+          <AppRouter />
+        </div>
+      </Suspense>
     </div>
   )
 }
